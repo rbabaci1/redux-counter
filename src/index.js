@@ -43,6 +43,7 @@ class Counter extends Component {
     return (
       <main className="Counter">
         <p className="count">{count}</p>
+
         <section className="controls">
           <button onClick={incrementValue}>Increment</button>
           <button onClick={decrementValue}>Decrement</button>
@@ -81,6 +82,11 @@ const mapDispatchToProps = (dispatch) => {
 //   increment: incrementValue,
 //   decrement: decrementValue,
 //   reset: resetValue,
+
+//   // this also work with modern react-redux
+//   // incrementValue,
+//   // decrementValue,
+//   // resetValue,
 // };
 
 const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);
