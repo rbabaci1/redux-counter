@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import { createStore } from 'redux';
+import { createStore, bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
 
 import './styles.scss';
@@ -10,6 +10,7 @@ const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
 const RESET = 'RESET';
 
+// action creators
 const incrementValue = () => ({
   type: INCREMENT,
 });
@@ -37,15 +38,15 @@ const store = createStore(reducer);
 
 class Counter extends Component {
   render() {
-    const { count, increment, decrement, reset } = this.props;
+    const { count, incrementValue, decrementValue, resetValue } = this.props;
 
     return (
       <main className="Counter">
         <p className="count">{count}</p>
         <section className="controls">
-          <button onClick={increment}>Increment</button>
-          <button onClick={decrement}>Decrement</button>
-          <button onClick={reset}>Reset</button>
+          <button onClick={incrementValue}>Increment</button>
+          <button onClick={decrementValue}>Decrement</button>
+          <button onClick={resetValue}>Reset</button>
         </section>
       </main>
     );
@@ -55,17 +56,25 @@ class Counter extends Component {
 const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    increment() {
-      dispatch(incrementValue());
+  // return {
+  //   increment() {
+  //     dispatch(incrementValue());
+  //   },
+  //   decrement() {
+  //     dispatch(decrementValue());
+  //   },
+  //   reset() {
+  //     dispatch(resetValue());
+  //   },
+  // };
+  return bindActionCreators(
+    {
+      incrementValue,
+      decrementValue,
+      resetValue,
     },
-    decrement() {
-      dispatch(decrementValue());
-    },
-    reset() {
-      dispatch(resetValue());
-    },
-  };
+    dispatch,
+  );
 };
 
 // const mapDispatchToProps = {
